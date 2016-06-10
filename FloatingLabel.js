@@ -57,7 +57,7 @@ class FloatingLabel extends Textbox {
           transform: [{
             translateY: self.state.fadeAnim.interpolate({
               inputRange: [0, 1],
-              outputRange: [10, 0]
+              outputRange: [5, 0]
             }),
           }]}]}>
           {locals.label}
