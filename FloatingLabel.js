@@ -160,6 +160,12 @@ class FloatingLabel extends Textbox {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.value) {
+      Animated.spring(
+          this.state.fadeAnim,
+          {toValue: 1, friction: 5},
+      ).start();
+    }
     return true;
   }
 }
