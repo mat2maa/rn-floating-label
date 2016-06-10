@@ -27,12 +27,19 @@ class FloatingLabel extends Textbox {
     return function (locals) {
       const stylesheet = locals.stylesheet;
       let formGroupStyle = stylesheet.formGroup.normal;
+      let inputBorderStyle = {};
+      if (stylesheet.inputBorder) {
+        inputBorderStyle = stylesheet.inputBorder.normal;
+      }
       let controlLabelStyle = stylesheet.controlLabel.normal;
       let textboxStyle = stylesheet.textbox.normal;
       let helpBlockStyle = stylesheet.helpBlock.normal;
       let errorBlockStyle = stylesheet.errorBlock;
 
       if (locals.hasError) {
+        if (stylesheet.inputBorder) {
+          inputBorderStyle = stylesheet.inputBorder.error;
+        }
         controlLabelStyle = stylesheet.controlLabel.error;
         formGroupStyle = stylesheet.formGroup.error;
         textboxStyle = stylesheet.textbox.error;
@@ -66,42 +73,44 @@ class FloatingLabel extends Textbox {
           }}>
           <View style={formGroupStyle}>
             {label}
-            <TextInput
-              ref='input'
-              autoCapitalize={locals.autoCapitalize}
-              autoCorrect={locals.autoCorrect}
-              autoFocus={locals.autoFocus}
-              bufferDelay={locals.bufferDelay}
-              clearButtonMode={locals.clearButtonMode}
-              editable={locals.editable}
-              enablesReturnKeyAutomatically={locals.enablesReturnKeyAutomatically}
-              keyboardType={locals.keyboardType}
-              multiline={locals.multiline}
-              onBlur={self._onBlur.bind(self, locals)}
-              onEndEditing={locals.onEndEditing}
-              onFocus={self._onFocus.bind(self, locals)}
-              onSubmitEditing={locals.onSubmitEditing}
-              password={locals.password}
-              placeholderTextColor={(locals.hasError) ? locals.errorPlaceholderTextColor || 'red' : locals.placeholderTextColor || 'grey'}
-              returnKeyType={locals.returnKeyType}
-              selectTextOnFocus={locals.selectTextOnFocus}
-              secureTextEntry={locals.secureTextEntry}
-              selectionState={locals.selectionState}
-              onChangeText={(value) => {
-                locals.onChange(value)
-                self._onChangeText.bind(self, value, locals)
-              }}
-              placeholder={placeholderString}
-              maxLength={locals.maxLength}
-              numberOfLines={locals.numberOfLines}
-              textAlign={locals.textAlign}
-              textAlignVertical={locals.textAlignVertical}
-              underlineColorAndroid={locals.underlineColorAndroid}
-              style={[styles.textInput, textboxStyle]}
-              value={locals.value}
-            />
-            {help}
-            {error}
+            <View style={inputBorderStyle}>
+              <TextInput
+                ref='input'
+                autoCapitalize={locals.autoCapitalize}
+                autoCorrect={locals.autoCorrect}
+                autoFocus={locals.autoFocus}
+                bufferDelay={locals.bufferDelay}
+                clearButtonMode={locals.clearButtonMode}
+                editable={locals.editable}
+                enablesReturnKeyAutomatically={locals.enablesReturnKeyAutomatically}
+                keyboardType={locals.keyboardType}
+                multiline={locals.multiline}
+                onBlur={self._onBlur.bind(self, locals)}
+                onEndEditing={locals.onEndEditing}
+                onFocus={self._onFocus.bind(self, locals)}
+                onSubmitEditing={locals.onSubmitEditing}
+                password={locals.password}
+                placeholderTextColor={(locals.hasError) ? locals.errorPlaceholderTextColor || 'red' : locals.placeholderTextColor || 'grey'}
+                returnKeyType={locals.returnKeyType}
+                selectTextOnFocus={locals.selectTextOnFocus}
+                secureTextEntry={locals.secureTextEntry}
+                selectionState={locals.selectionState}
+                onChangeText={(value) => {
+                  locals.onChange(value)
+                  self._onChangeText.bind(self, value, locals)
+                }}
+                placeholder={placeholderString}
+                maxLength={locals.maxLength}
+                numberOfLines={locals.numberOfLines}
+                textAlign={locals.textAlign}
+                textAlignVertical={locals.textAlignVertical}
+                underlineColorAndroid={locals.underlineColorAndroid}
+                style={[styles.textInput, textboxStyle]}
+                value={locals.value}
+              />
+              {help}
+              {error}
+            </View>
           </View>
         </TouchableWithoutFeedback>
       )
